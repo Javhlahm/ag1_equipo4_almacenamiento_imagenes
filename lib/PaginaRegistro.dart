@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:ag1_equipo4_almacenamiento_imagenes/OperacionesMYSQL.dart';
+import 'package:ag1_equipo4_almacenamiento_imagenes/PaginaPrincipal.dart';
 import 'package:ag1_equipo4_almacenamiento_imagenes/libro.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -16,7 +17,7 @@ class Paginaregistro extends StatefulWidget {
 
 class _PaginaregistroState extends State<Paginaregistro> {
   File? imagen;
-  Uint8List? imagenblob;
+  String? imagenblob;
   Operacionesmysql db = Operacionesmysql();
   var formKey = new GlobalKey<FormState>();
   TextEditingController ctrlTitulo = new TextEditingController();
@@ -116,7 +117,7 @@ class _PaginaregistroState extends State<Paginaregistro> {
                           await picker.pickImage(source: ImageSource.gallery);
                       if (imagenSeleccionada != null) {
                         imagen = File(imagenSeleccionada.path);
-                        imagenblob = imagen!.readAsBytesSync();
+                        imagenblob = base64Encode(imagen!.readAsBytesSync());
                         setState(() {});
                       }
                     },
@@ -140,8 +141,10 @@ class _PaginaregistroState extends State<Paginaregistro> {
                               imagenblob!);
                           Libro? libroGuardado = await db.guardarLibro(libro);
                           if (libroGuardado != null) {
-                            Navigator.pop(context);
-                            setState(() {});
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Paginaprincipal()));
                             return showDialog(
                                 context: context,
                                 builder: (context) {

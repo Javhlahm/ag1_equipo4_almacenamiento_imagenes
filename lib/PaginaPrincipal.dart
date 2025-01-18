@@ -40,7 +40,7 @@ class _PaginaprincipalState extends State<Paginaprincipal> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => Paginaregistro()));
               },
-              icon: Icon(Icons.book_online))
+              icon: Icon(Icons.new_label))
         ],
       ),
       body: Center(
@@ -63,11 +63,16 @@ class _PaginaprincipalState extends State<Paginaprincipal> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Image.memory(snapshot.data![index].portada),
+                        Image.memory(
+                            scale: 2.0,
+                            base64Decode(snapshot.data![index].portada!)),
+                        Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
                         Text(
                           snapshot.data![index].titulo,
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20.0),
                         ),
+                        Padding(padding: EdgeInsets.symmetric(vertical: 15.0)),
                         Text(snapshot.data![index].autor),
                         Text(snapshot.data![index].paginas.toString()),
                         Text(snapshot.data![index].editorial),

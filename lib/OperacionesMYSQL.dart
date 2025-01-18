@@ -34,7 +34,7 @@ class Operacionesmysql {
         genero VARCHAR(100),
         paginas INT,
         editorial VARCHAR(100),
-        portada BLOB
+        portada LONGTEXT
       );
     ''');
     await Future.delayed(Duration(seconds: 2));
@@ -66,9 +66,10 @@ class Operacionesmysql {
     List<Libro> libros = [];
 
     for (var linea in results) {
-      var blob = linea[6] as List<int>;
+      //   var portada = base64Encode(linea[6]);
+      //   Blob blob = Blob.fromString(linea[6].toString());
       Libro libro = new Libro(linea[0], linea[1], linea[2], linea[3], linea[4],
-          linea[5], Uint8List.fromList(blob));
+          linea[5], linea[6].toString());
       libros.add(libro);
     }
     return libros;
