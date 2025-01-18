@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:ag1_equipo4_almacenamiento_imagenes/OperacionesMYSQL.dart';
+import 'package:ag1_equipo4_almacenamiento_imagenes/PaginaBusqueda.dart';
 import 'package:ag1_equipo4_almacenamiento_imagenes/PaginaDetalles.dart';
 import 'package:ag1_equipo4_almacenamiento_imagenes/PaginaRegistro.dart';
 import 'package:ag1_equipo4_almacenamiento_imagenes/libro.dart';
@@ -35,7 +36,12 @@ class _PaginaprincipalState extends State<Paginaprincipal> {
         centerTitle: true,
         backgroundColor: Colors.amber,
         actions: [
-          IconButton(onPressed: null, icon: Icon(Icons.search)),
+          IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Paginabusqueda()));
+              },
+              icon: Icon(Icons.search)),
           IconButton(
               onPressed: () {
                 Navigator.push(context,
@@ -60,35 +66,35 @@ class _PaginaprincipalState extends State<Paginaprincipal> {
                 padding: EdgeInsets.all(10),
                 itemCount: snapshot.data?.length,
                 itemBuilder: (context, index) {
-                  return Hero(
-                    tag: snapshot.data![index].paginas.toString(),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Paginadetalles(
-                                      libro: snapshot.data![index],
-                                    )));
-                      },
-                      child: Card(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Image.memory(
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Paginadetalles(
+                                    libro: snapshot.data![index],
+                                  )));
+                    },
+                    child: Card(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            height: 200,
+                            width: 100,
+                            child: Image.memory(
                                 scale: 2.0,
                                 base64Decode(snapshot.data![index].portada!)),
-                            Padding(
-                                padding: EdgeInsets.symmetric(vertical: 10.0)),
-                            Text(
-                              snapshot.data![index].titulo,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 20.0),
-                            ),
-                            Padding(
-                                padding: EdgeInsets.symmetric(vertical: 15)),
-                          ],
-                        ),
+                          ),
+                          Padding(
+                              padding: EdgeInsets.symmetric(vertical: 10.0)),
+                          Text(
+                            snapshot.data![index].titulo,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20.0),
+                          ),
+                          Padding(padding: EdgeInsets.symmetric(vertical: 15)),
+                        ],
                       ),
                     ),
                   );

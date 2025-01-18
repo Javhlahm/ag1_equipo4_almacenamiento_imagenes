@@ -82,8 +82,8 @@ class Operacionesmysql {
     List<Libro> libros = [];
 
     for (var fila in results) {
-      Libro libro = new Libro(
-          fila[0], fila[1], fila[2], fila[3], fila[4], fila[5], fila[6]);
+      Libro libro = new Libro(fila[0], fila[1], fila[2], fila[3], fila[4],
+          fila[5], fila[6].toString());
       libros.add(libro);
     }
     return libros;
