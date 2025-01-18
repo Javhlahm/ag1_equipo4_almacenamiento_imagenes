@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:typed_data';
-
 import 'package:ag1_equipo4_almacenamiento_imagenes/libro.dart';
 import 'package:mysql1/mysql1.dart';
 

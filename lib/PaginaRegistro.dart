@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:ag1_equipo4_almacenamiento_imagenes/OperacionesMYSQL.dart';
 import 'package:ag1_equipo4_almacenamiento_imagenes/PaginaPrincipal.dart';

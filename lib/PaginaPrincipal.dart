@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:ag1_equipo4_almacenamiento_imagenes/OperacionesMYSQL.dart';
+import 'package:ag1_equipo4_almacenamiento_imagenes/PaginaDetalles.dart';
 import 'package:ag1_equipo4_almacenamiento_imagenes/PaginaRegistro.dart';
 import 'package:ag1_equipo4_almacenamiento_imagenes/libro.dart';
 import 'package:flutter/material.dart';
@@ -59,25 +60,36 @@ class _PaginaprincipalState extends State<Paginaprincipal> {
                 padding: EdgeInsets.all(10),
                 itemCount: snapshot.data?.length,
                 itemBuilder: (context, index) {
-                  return Card(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Image.memory(
-                            scale: 2.0,
-                            base64Decode(snapshot.data![index].portada!)),
-                        Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
-                        Text(
-                          snapshot.data![index].titulo,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20.0),
+                  return Hero(
+                    tag: snapshot.data![index].paginas.toString(),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Paginadetalles(
+                                      libro: snapshot.data![index],
+                                    )));
+                      },
+                      child: Card(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Image.memory(
+                                scale: 2.0,
+                                base64Decode(snapshot.data![index].portada!)),
+                            Padding(
+                                padding: EdgeInsets.symmetric(vertical: 10.0)),
+                            Text(
+                              snapshot.data![index].titulo,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 20.0),
+                            ),
+                            Padding(
+                                padding: EdgeInsets.symmetric(vertical: 15)),
+                          ],
                         ),
-                        Padding(padding: EdgeInsets.symmetric(vertical: 15.0)),
-                        Text(snapshot.data![index].autor),
-                        Text(snapshot.data![index].paginas.toString()),
-                        Text(snapshot.data![index].editorial),
-                        Text(snapshot.data![index].genero),
-                      ],
+                      ),
                     ),
                   );
                 });
